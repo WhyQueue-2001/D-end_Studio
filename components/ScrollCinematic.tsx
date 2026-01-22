@@ -297,7 +297,7 @@ export default function StudioSize() {
                 )}
               </div>
               <h3 className="text-2xl font-semibold">{work.title}</h3>
-              <p className="text-gray-400 text-sm">{work.subtitle}</p>
+              
             </div>
           ))}
         </div>
