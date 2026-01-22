@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function StudioSize() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hoveredVideo, setHoveredVideo] = useState(null);
+  const [hoveredVideo, setHoveredVideo] = useState<number | null>(null);
   const [showServices, setShowServices] = useState(false);
   
   const cinematicRef = React.useRef<HTMLDivElement | null>(null);
