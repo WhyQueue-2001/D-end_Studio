@@ -4,7 +4,6 @@ import { useState, useEffect, useRef, } from 'react';
 
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import RotatingWords from './RotatingWords';
 
 
