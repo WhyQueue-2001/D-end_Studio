@@ -5,17 +5,18 @@ import { useEffect } from "react"
 import Lenis from "@studio-freight/lenis"
 import { customFont } from "./font"
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }) {
   useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true,
       lerp: 0.08,
     })
 
-    function raf(time: number) {
+    function raf(time) {
       lenis.raf(time)
       requestAnimationFrame(raf)
     }
+    
     requestAnimationFrame(raf)
   }, [])
 
