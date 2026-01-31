@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, } from 'react';
 
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import RotatingWords from './RotatingWords';
 import SplashScreen from './SplashScreen';
 
@@ -14,11 +15,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 
-export default function StudioSize() {
+export default function DendStudio() {
+  const router = useRouter();
   const [showSplash, setShowSplash] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredVideo, setHoveredVideo] = useState(null);
   const [showServices, setShowServices] = useState(false);
+  
+  const videoRef = useRef(null);
 
   const cinematicRef = React.useRef(null);
   const brandRef = React.useRef(null);
@@ -33,7 +37,7 @@ export default function StudioSize() {
     { name: 'Commercial ads', image: '/commercial.jpeg' },
     { name: 'Scriptwriting', image: '/scriptwriting.jpeg' },
     { name: 'Motion graphics', image: '/motiongraphics.jpeg' },
-    { name: 'VFX & compositing', image: '/vfx.jpeg' },
+    { name: 'VFX', image: '/vfx.jpeg' },
     { name: 'Campaign concepts', image: '/campaign.jpeg' },
     { name: 'Photography', image: '/photography.jpeg' },
     { name: '2D & 3D animation', image: '/animation.jpeg' },
@@ -42,6 +46,15 @@ export default function StudioSize() {
   const [hoveredService, setHoveredService] = useState(services[0]);
 
   const companyName = "D-End Studio";
+
+  // Navigate to our-work page and scroll to top
+  const handleVideoClick = () => {
+    router.push('/our-work');
+    // Ensure the page scrolls to top after navigation
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+  };
 
   React.useEffect(() => {
     if (!cinematicRef.current) return;
@@ -101,14 +114,16 @@ export default function StudioSize() {
     };
   }, []);
 
+  // Updated Video Components with new video sources
   const VideoPlaceholder = ({ className = "" }) => (
     <div className={`bg-gray-900 flex items-center justify-center relative overflow-hidden ${className}`}>
       <video
-        src="/video2.mp4"
+        src="/video_3.mp4"
         autoPlay
         loop
         muted
-        className="w-full h-full object-cover -rotate-90 scale-200"
+        playsInline
+        className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
       </div>
@@ -116,18 +131,67 @@ export default function StudioSize() {
   );
 
   const VideoPlaceholder2 = ({ className = "" }) => (
-    <div className={`bg-gray-900 flex items-center justify-center relative overflow-hidden w-full h-48 ${className}`}>
+    <div className={`bg-gray-900 flex items-center justify-center relative overflow-hidden w-full ${className}`}>
       <video
-        src="/video1.mp4"
+        src="/video_4.mp4"
         autoPlay
         loop
         muted
+        playsInline
+        className="w-full h-175 object-cover"
+      />
+      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+      </div>
+    </div>
+  );
+
+  const VideoPlaceholder3 = ({ className = "" }) => (
+    <div className={`bg-gray-900 flex items-center justify-center relative overflow-hidden rounded-lg h-84 w-full border border-gray-800 ${className}`}>
+      <video
+        src="/video_2.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-contain rotate-270"
+      />
+      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+      </div>
+    </div>
+  );
+
+  // New video component for the second item in first column
+  const VideoPlaceholder4 = ({ className = "" }) => (
+    <div className={`bg-gray-900 flex items-center justify-center relative overflow-hidden rounded-lg ${className}`}>
+      <video
+        src="/video_6.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
       </div>
     </div>
   );
+
+  // New video component for the first item in third column (horizontal video)
+  const VideoPlaceholder5 = ({ className = "" }) => (
+    <div
+      className={`relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden ${className}`}
+    >
+      <video
+        src="/video_2.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    </div>
+  );
+  
 
   return (
     <>
@@ -139,29 +203,24 @@ export default function StudioSize() {
         {/* Fixed Background with Image */}
         <div
           className="fixed inset-0 -z-10 bg-black bg-cover bg-center"
-          style={{ backgroundImage: 'url(/bg4.png)' }}
+          style={{ backgroundImage: 'url(/bg15.png)' }}
         />
 
-
-        {/* Your page content goes here */}
-        <div className="relative z-10">
-          {/* Add your content here */}
-        </div>
         {/* Scrollable Content */}
         <div className="relative z-10">
           {/* Navigation */}
-          <nav className="flex items-center justify-between px-8 py-6 border-b border-gray-800 sticky top-0 z-50 bg-black/95 backdrop-blur">
-            <div className="text-5xl font-bold tracking-tight">
+          <nav className="flex items-center justify-between px-4 sm:px-6 md:px-8 py-4 md:py-6 border-b border-gray-800 sticky top-0 z-50 bg-black/95 backdrop-blur">
+            <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
               D-End Studio<span className="text-red-500"></span>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#" className="text-2xl font-bold hover:text-red-500 transition">Home</a>
-              <a href="#" className="text-2xl font-bold hover:text-red-500 transition">Portfolio</a>
-              <a href="#" className="text-2xl font-bold hover:text-red-500 transition">About</a>
+            <div className="hidden md:flex items-center gap-4 lg:gap-8">
+              <a href="#" className="text-lg lg:text-2xl font-bold hover:text-red-500 transition">Home</a>
+              <a href="#" className="text-lg lg:text-2xl font-bold hover:text-red-500 transition">Portfolio</a>
+              <a href="#" className="text-lg lg:text-2xl font-bold hover:text-red-500 transition">About</a>
 
-              <button className="px-6 py-2 border border-white rounded-full text-2xl font-bold hover:bg-red-500 hover:text-white transition">
+              <button className="px-4 lg:px-6 py-2 border border-white rounded-full text-lg lg:text-2xl font-bold hover:bg-red-500 hover:text-white transition">
                 Get in touch
               </button>
             </div>
@@ -174,133 +233,89 @@ export default function StudioSize() {
 
           {/* Mobile Menu */}
           {menuOpen && (
-            <div className="md:hidden border-b border-gray-800 px-8 py-4 space-y-4">
-              <a href="#" className="block text-sm">Home</a>
-              <a href="#" className="block text-sm">Portfolio</a>
-              <a href="#" className="block text-sm">About</a>
+            <div className="md:hidden border-b border-gray-800 px-4 sm:px-6 md:px-8 py-4 space-y-4 bg-black/95">
+              <a href="#" className="block text-base font-bold">Home</a>
+              <a href="#" className="block text-base font-bold">Portfolio</a>
+              <a href="#" className="block text-base font-bold">About</a>
 
-              <button className="w-full px-6 py-2 border border-white rounded-full text-sm hover:bg-white hover:text-black transition">
+              <button className="w-full px-6 py-2 border border-white rounded-full text-base font-bold hover:bg-red-500 hover:text-white transition">
                 Get in touch
               </button>
             </div>
           )}
 
           {/* Hero Section */}
-          <div className="px-8 py-20 md:py-32">
-          <div className="leading-tight mb-20 w-full">
-  <h1 className="text-5xl md:text-9xl font-bold whitespace-nowrap">Production studio</h1>
-  <h2 className="text-3xl md:text-7xl font-bold whitespace-nowrap">for timeless storytelling</h2>
-</div>
+          <div className="px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20 lg:py-32">
+            <div className="leading-tight mb-12 sm:mb-16 md:mb-20 w-full">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl font-bold break-words">Where Dreams End</h1>
+              <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-7xl font-bold break-words">Our Creativity begins</h2>
+            </div>
 
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-
-              {/* First Column - Chart and Stats */}
-              <div className="space-y-6">
-                <VideoPlaceholder className="h-64 rounded-lg" />
-
-                <div className="bg-gray-950 border border-gray-800 rounded-lg overflow-hidden">
-                  <img
-                    src="/image.jpeg"
-                    alt="Statistics"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            {/* Grid Layout - 3 Columns on ALL screen sizes */}
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-6 mb-8 sm:mb-12">
+              {/* First Column - Video 1 and Video 4 */}
+              <div className="space-y-2 sm:space-y-3 md:space-y-6">
+                <VideoPlaceholder className="h-32 sm:h-48 md:h-64 rounded-lg" />
+                <VideoPlaceholder4 className="h-32 sm:h-48 md:h-150" />
               </div>
 
-              {/* Second Column - Large video placeholder with colorful bars */}
-              <div className="md:row-span-2">
-                <div className="relative rounded-lg overflow-hidden h-full min-h-96">
-                  <VideoPlaceholder2 className="h-full absolute inset-0" />
-                </div>
-              </div>
-
-              {/* Third Column - Text and circles */}
-              <div className="space-y-6">
-              <div className="bg-gray-900 flex items-center justify-center relative overflow-hidden rounded-lg">
-  <img
-    src="/rebel.jpg"
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-  </div>
-</div>
+              {/* Second Column - RotatingWords and Video 2 with spacing */}
+              <div className="row-span-2 flex flex-col gap-2 sm:gap-3 md:gap-6">
                 <RotatingWords />
-                <div className="bg-gray-900 flex items-center justify-center relative overflow-hidden rounded-lg h-84 w-full border border-gray-800">
-                  <video
-                    src="/video4.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                  </div>
+                <div className="relative rounded-lg overflow-hidden flex-1 min-h-[200px] sm:min-h-[300px] md:min-h-[400px]">
+                  <VideoPlaceholder2 className="h-full" />
                 </div>
+              </div>
+
+              {/* Third Column - Video 5 */}
+              <div className="space-y-2 sm:space-y-3 md:space-y-6">
+                <VideoPlaceholder5 className="h-full"/>
+               
               </div>
             </div>
           </div>
 
           {/* Featured Work Section */}
-          <div className="px-8 pt-12 pb-8">
-            <div className="flex items-center justify-between mb-12">
-              <h2 className="text-8xl font-bold">Featured Work</h2>
-              <div className="flex items-center gap-4">
-                <button className="px-6 py-2 border border-white rounded-full text-2xl hover:bg-white hover:text-black transition">
-                  View All
-                </button>
-                <button className="p-3 border border-gray-700 rounded-full hover:border-white transition">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button className="p-3 border border-gray-700 rounded-full hover:border-white transition">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              </div>
+          <div className="px-4 sm:px-6 md:px-8 pt-8 sm:pt-12 pb-6 sm:pb-8">
+            <div className="flex items-center justify-between mb-8 sm:mb-12">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-bold">Featured Work</h2>
             </div>
 
-            {/* Featured Work Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {[
-                { id: 1, title: 'Project Name', image: '/work2.jpeg', video: '/workvideo2.mp4' },
-                { id: 2, title: 'Project Name', image: '/work1.jpeg', video: '/videowork1.mp4' },
-                { id: 3, title: 'Project Name', image: '/work3.jpeg', video: '/workvideo3.mp4' },
-                { id: 4, title: 'Project Name', image: '/work4.jpeg', video: '/workvideo4.mp4' },
-              ].map((work) => (
-                <div key={work.id} className="group">
-                  <div
-                    className="relative h-80 rounded-xl overflow-hidden cursor-pointer mb-4 bg-gray-900"
-                    onMouseEnter={() => setHoveredVideo(work.id)}
-                    onMouseLeave={() => setHoveredVideo(null)}
-                  >
-                    {hoveredVideo === work.id ? (
-                      <video
-                        src={work.video}
-                        autoPlay
-                        loop
-                        muted
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <img
-                        src={work.image}
-                        alt={work.title}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
+            {/* Featured Work - Single Item with Click Handler */}
+            <div className="max-w-full">
+              <div className="group">
+                <div
+                  className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-xl overflow-hidden cursor-pointer mb-4 bg-gray-900 transition-transform hover:scale-[1.02]"
+                  onMouseEnter={() => setHoveredVideo(1)}
+                  onMouseLeave={() => setHoveredVideo(null)}
+                  onClick={handleVideoClick}
+                >
+                  <video
+                    ref={videoRef}
+                    src="/umang.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                    className="w-full h-full object-cover"
+                    style={{
+                      imageRendering: 'crisp-edges',
+                      WebkitBackfaceVisibility: 'hidden',
+                      backfaceVisibility: 'hidden'
+                    }}
+                  />
 
-                    {hoveredVideo === work.id && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                  {hoveredVideo === 1 && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                      <div className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-bold bg-black/60 px-6 sm:px-8 py-3 sm:py-4 rounded-full backdrop-blur-sm">
+                        View Work
                       </div>
-                    )}
-                  </div>
-                  <h3 className="text-2xl font-semibold">{work.title}</h3>
-
+                    </div>
+                  )}
                 </div>
-              ))}
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">Speed Thrills, Risk kills</h3>
+              </div>
             </div>
           </div>
 
@@ -312,33 +327,34 @@ export default function StudioSize() {
             {/* BRAND LETTER SCENE */}
             <div
               ref={brandRef}
-              className="absolute inset-0 flex items-center justify-center px-8 md:px-16"            >
+              className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-16"
+            >
               <h2 className="text-[14vw] md:text-[13vw] font-bold tracking-wider whitespace-nowrap">
-              {companyName.split('').map((char, i) => (
-                <span
-                  key={i}
-                  ref={(el) => {
-                    if (el) lettersRef.current[i] = el;
-                  }}
-                  className="inline-block opacity-0"
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-            </h2>
+                {companyName.split('').map((char, i) => (
+                  <span
+                    key={i}
+                    ref={(el) => {
+                      if (el) lettersRef.current[i] = el;
+                    }}
+                    className="inline-block opacity-0"
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
+              </h2>
             </div>
 
             {/* SERVICES SCENE (comes from top) */}
             <div
               ref={servicesRef}
-              className="absolute inset-0 px-8 py-20"
+              className="absolute inset-0 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20"
             >
-              <p className="text-2xl md:text-7xl font-bold text-white mb-20">Services</p>
+              <p className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-12 sm:mb-16 md:mb-20">Services</p>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
                 {/* Image that changes on hover */}
-                <div className="flex justify-center">
-                  <div className="w-100 h-150  bg-gray-800 flex items-center justify-center overflow-hidden">
+                <div className="flex justify-center order-2 md:order-1">
+                  <div className="w-full max-w-md h-64 sm:h-80 md:h-96 lg:w-120 lg:h-160 bg-gray-800 flex items-center justify-center overflow-hidden rounded-lg">
                     {hoveredService && (
                       <img
                         src={hoveredService.image}
@@ -350,12 +366,13 @@ export default function StudioSize() {
                 </div>
 
                 {/* Services list */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4 order-1 md:order-2">
                   {services.map((service, i) => (
                     <p
                       key={i}
-                      className="text-5xl md:text-6xl font-bold text-white hover:text-red-500 transition-all hover:translate-x-8 cursor-pointer"
+                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white hover:text-red-500 md:hover:text-5xl lg:hover:text-7xl transition-all hover:translate-x-2 md:hover:translate-x-3 cursor-pointer"
                       onMouseEnter={() => setHoveredService(service)}
+                      onClick={() => setHoveredService(service)}
                     >
                       {service.name}
                     </p>
