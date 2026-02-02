@@ -10,8 +10,12 @@ export default function OurWorkPage() {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Scroll to top when component mounts
-    window.scrollTo(0, 0);
+    // Scroll to top using Lenis
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
     
     if (videoRef.current) {
       videoRef.current.muted = false;

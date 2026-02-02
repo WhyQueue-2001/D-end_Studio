@@ -4,7 +4,6 @@ export default function Home() {
   return (
     <main>
       <ScrollCinematic />
-      <div style={{ height: "400vh" }} />
     </main>
   )
 }
