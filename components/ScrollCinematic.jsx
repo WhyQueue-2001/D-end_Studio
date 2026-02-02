@@ -64,13 +64,14 @@ export default function DendStudio() {
         scrollTrigger: {
           trigger: cinematicRef.current,
           start: 'top top',
-          end: 'center top',
+          end: '+=200%',
           scrub: true,
           pin: true,
           pinSpacing: true,
           anticipatePin: 1,
         },
       });
+      
 
       tl.fromTo(
         lettersRef.current,
@@ -106,6 +107,7 @@ export default function DendStudio() {
         },
         '-=0.3'
       );
+      
     }, cinematicRef);
 
     return () => {
@@ -321,13 +323,14 @@ export default function DendStudio() {
 
           {/* ================= CINEMATIC BRAND → SERVICES ================= */}
           <section
-            ref={cinematicRef}
-            className="relative h-screen overflow-hidden"
-          >
+  ref={cinematicRef}
+  className="relative min-h-[200vh] overflow-hidden"
+>
+
             {/* BRAND LETTER SCENE */}
             <div
               ref={brandRef}
-              className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-16"
+              className="absolute inset-0 h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-16"
             >
               <h2 className="text-[14vw] md:text-[13vw] font-bold tracking-wider whitespace-nowrap">
                 {companyName.split('').map((char, i) => (
@@ -346,9 +349,10 @@ export default function DendStudio() {
 
             {/* SERVICES SCENE (comes from top) */}
             <div
-              ref={servicesRef}
-              className="absolute inset-0 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20"
-            >
+  ref={servicesRef}
+  className="relative min-h-screen px-4 sm:px-6 md:px-8 py-20"
+>
+
               <p className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-12 sm:mb-16 md:mb-20">Services</p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
