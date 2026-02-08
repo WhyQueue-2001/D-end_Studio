@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, } from 'react';
 
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import RotatingWords from './RotatingWords';
 import SplashScreen from './SplashScreen';
@@ -21,6 +21,7 @@ export default function DendStudio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hoveredVideo, setHoveredVideo] = useState(null);
   const [showServices, setShowServices] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const videoRef = useRef(null);
 
@@ -47,13 +48,18 @@ export default function DendStudio() {
 
   const companyName = "D-End Studio";
 
-  // Navigate to our-work page and scroll to top
+  // Navigate to our-work page with slide animation
   const handleVideoClick = () => {
-    router.push('/our-work');
-    // Ensure the page scrolls to top after navigation
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
-    }
+    setIsNavigating(true);
+    
+    // Wait for animation to complete before navigating
+    setTimeout(() => {
+      router.push('/our-work');
+      // Ensure the page scrolls to top after navigation
+      if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
+    }, 800); // Match this with animation duration
   };
 
   React.useEffect(() => {
@@ -199,6 +205,22 @@ export default function DendStudio() {
     <>
       {/* Splash Screen */}
       {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
+
+      {/* Slide-in Animation Overlay */}
+      <AnimatePresence>
+        {isNavigating && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: 0 }}
+            transition={{ 
+              duration: 0.8, 
+              ease: [0.76, 0, 0.24, 1] // Custom easing for smooth slide
+            }}
+            className="fixed inset-0 bg-black z-[100]"
+          />
+        )}
+      </AnimatePresence>
 
       {/* Main Content */}
       <div className="min-h-screen text-white relative">
@@ -549,7 +571,7 @@ From concept development to final execution, D-End Studio focuses on delivering 
                   D-End Studio<span className="text-red-500">.</span>
                 </div>
                 <div className="text-gray-400 text-center md:text-right">
-                  <p className="text-sm sm:text-base">© 2026 D-End Studio. All rights reserved.</p>
+                  <p className="text-sm sm:text-base">© 2024 D-End Studio. All rights reserved.</p>
                   <p className="text-sm sm:text-base mt-2">Where Dreams End, Our Creativity Begins</p>
                 </div>
               </div>
