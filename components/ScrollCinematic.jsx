@@ -571,7 +571,7 @@ From concept development to final execution, D-End Studio focuses on delivering 
                   D-End Studio<span className="text-red-500">.</span>
                 </div>
                 <div className="text-gray-400 text-center md:text-right">
-                  <p className="text-sm sm:text-base">© 2024 D-End Studio. All rights reserved.</p>
+                  <p className="text-sm sm:text-base">© 2026 D-End Studio. All rights reserved.</p>
                   <p className="text-sm sm:text-base mt-2">Where Dreams End, Our Creativity Begins</p>
                 </div>
               </div>
